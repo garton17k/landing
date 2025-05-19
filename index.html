@@ -2,123 +2,107 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Chargeback Terms and Conditions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terms & Conditions</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0; padding: 0;
-      background-color: #f9f9f9;
-      color: #333;
-      line-height: 1.6;
-    }
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      background: #fff;
-      padding: 30px 40px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f8f8f8;
       border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     h1 {
       text-align: center;
-      color: #d9534f;
-      margin-bottom: 30px;
     }
-    h2 {
-      color: #555;
-      margin-top: 30px;
-    }
-    p {
-      margin-bottom: 15px;
-    }
-    ul {
-      margin: 10px 0 20px 20px;
+    .terms {
+      margin-top: 20px;
+      height: 300px;
+      overflow-y: scroll;
+      background: #fff;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
     }
     button {
-      background-color: #d9534f;
-      color: white;
+      margin-top: 20px;
+      width: 100%;
+      padding: 15px;
+      background-color: #4CAF50;
       border: none;
-      padding: 15px 25px;
-      font-size: 1rem;
+      color: white;
+      font-size: 16px;
       border-radius: 5px;
       cursor: pointer;
-      display: block;
-      margin: 30px auto 0 auto;
-      transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #c9302c;
+      background-color: #45a049;
     }
-    footer {
+    #status {
       text-align: center;
-      margin-top: 40px;
-      font-size: 0.9rem;
-      color: #888;
+      margin-top: 20px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Chargeback Terms and Conditions</h1>
 
-    <p>Welcome to Chargebackbase. By using our services, you agree to comply with the following terms and conditions:</p>
-
-    <h2>1. Service Overview</h2>
-    <p>Chargebackbase assists users in recovering lost funds from cryptocurrency scams, digital asset fraud, and other investment-related disputes. Our services are educational and advisory and do not guarantee recovery.</p>
-
-    <h2>2. User Responsibilities</h2>
-    <ul>
-      <li>You must provide accurate information related to your case.</li>
-      <li>You understand that we do not provide legal advice.</li>
-      <li>You agree to use the services ethically and lawfully.</li>
-    </ul>
-
-    <h2>3. Limitations</h2>
-    <p>We are not liable for any losses resulting from the use of our services. Past success does not guarantee future outcomes.</p>
-
-    <h2>4. Privacy</h2>
-    <p>Your personal data is handled in accordance with our Privacy Policy.</p>
-
-    <h2>5. Network Setup</h2>
-    <p>To use our platform effectively, add our custom blockchain network to MetaMask by clicking the button below.</p>
-
-    <button id="addNetworkBtn">Add Chargeback Network to MetaMask</button>
-
-    <footer>
-      &copy; 2025 Chargebackbase. All rights reserved.
-    </footer>
+  <h1>Terms & Conditions</h1>
+  <div class="terms">
+    <p>
+      By using this service, you agree that the information shown on this network is for educational and simulation purposes only. 
+      We do not store any private data or perform real blockchain transactions. 
+      This is not financial advice or a real blockchain network.
+    </p>
+    <p>
+      This tool mimics Ethereum behavior for development or awareness purposes only. Use at your own discretion.
+    </p>
+    <!-- Add more terms here if needed -->
   </div>
 
-  <script>
-    const addNetworkBtn = document.getElementById('addNetworkBtn');
+  <button id="agree">I Agree & Connect to Network</button>
 
-    addNetworkBtn.addEventListener('click', async () => {
-      if (!window.ethereum) {
-        alert('MetaMask is not installed. Please install MetaMask and try again.');
+  <p id="status">Checking MetaMask...</p>
+
+  <script>
+    window.addEventListener('load', () => {
+      const status = document.getElementById('status');
+      const agreeButton = document.getElementById('agree');
+
+      if (typeof window.ethereum === 'undefined') {
+        status.textContent = "MetaMask not detected. Please install MetaMask.";
+        agreeButton.disabled = true;
         return;
       }
 
-      try {
-        await window.ethereum.request({
-          method: 'wallet_addEthereumChain',
-          params: [{
-            chainId: '0x539', // 1337 in hex
-            chainName: 'Chargeback Network',
-            nativeCurrency: {
-              name: 'ETH',
-              symbol: 'ETH',
-              decimals: 18
-            },
-            rpcUrls: ['https://rpc-food.onrender.com']
-          }]
-        });
-        alert('Chargeback Network added to MetaMask! Please switch to it.');
-      } catch (error) {
-        console.error(error);
-        alert('Failed to add the network to MetaMask.');
-      }
+      status.textContent = "MetaMask detected.";
+
+      agreeButton.addEventListener('click', async () => {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [{
+              chainId: '0x539', // 1337
+              chainName: 'Chargeback RPC',
+              nativeCurrency: {
+                name: 'ETH',
+                symbol: 'ETH',
+                decimals: 18
+              },
+              rpcUrls: ['https://rpc-food.onrender.com'], // 🔁 Replace with your deployed RPC URL
+              blockExplorerUrls: []
+            }]
+          });
+          status.textContent = "Network added successfully!";
+        } catch (error) {
+          console.error(error);
+          status.textContent = "Failed to add network.";
+        }
+      });
     });
   </script>
+
 </body>
 </html>
