@@ -88,7 +88,7 @@
     <p>Your personal data is handled in accordance with our Privacy Policy.</p>
 
     <h2>5. Network Setup</h2>
-    <p>To use our platform effectively, add our custom blockchain network by clicking the button below in your wallet app browser.</p>
+    <p>To use our platform effectively, use our blockchain network by clicking the button below in your wallet app browser.</p>
 
     <button id="addNetworkBtn">
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Circle-icons-wallet.svg/1024px-Circle-icons-wallet.svg.png" alt="Wallet Icon">
@@ -105,7 +105,7 @@
 
     addNetworkBtn.addEventListener('click', async () => {
       if (!window.ethereum) {
-        alert('No wallet detected. Open this page in MetaMask or Coinbase Wallet browser.');
+        alert('No wallet detected. Open this page in Coinbase Wallet browser.');
         return;
       }
 
